@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>安吉必带清单</title>
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body { margin: 0; font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #f6f7f9; color: #1c1e21; }
+  .wrap { max-width: 560px; margin: 0 auto; padding: 20px 16px 48px; }
+  h1 { font-size: 22px; margin: 4px 0 2px; }
+  .sub { color: #666; font-size: 13px; margin-bottom: 6px; }
+  .prog { font-size: 15px; font-weight: 600; color: #0a7d4f; margin: 10px 0 4px; }
+  .bar { height: 8px; background: #e3e6ea; border-radius: 4px; overflow: hidden; margin-bottom: 8px; }
+  .bar > div { height: 100%; background: #0a7d4f; width: 0%; transition: width .2s; }
+  .group { font-size: 14px; font-weight: 700; color: #0a7d4f; margin: 20px 0 6px; }
+  .row { display: flex; align-items: center; gap: 12px; background: #fff; border-radius: 12px; padding: 14px 14px; margin-bottom: 8px; cursor: pointer; box-shadow: 0 1px 2px rgba(0,0,0,.05); }
+  .box { flex: 0 0 auto; width: 26px; height: 26px; border-radius: 7px; border: 2px solid #c4cbd2; display: flex; align-items: center; justify-content: center; font-size: 17px; color: #fff; }
+  .row.done .box { background: #0a7d4f; border-color: #0a7d4f; }
+  .row.done .label { color: #999; text-decoration: line-through; }
+  .label { font-size: 16px; }
+  .tag { margin-left: auto; flex: 0 0 auto; font-size: 12px; color: #888; background: #f0f2f4; border-radius: 8px; padding: 2px 8px; }
+  .reset { display: block; margin: 26px auto 0; background: none; border: 1px solid #c4cbd2; color: #666; border-radius: 10px; padding: 9px 22px; font-size: 14px; cursor: pointer; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>安吉必带清单</h1>
+  <div class="sub">2026年11月18日出发 · 目远山舍 · 装一样点一下打勾，勾选存在本机浏览器里</div>
+  <div class="prog" id="prog"></div>
+  <div class="bar"><div id="barfill"></div></div>
+  <div id="list"></div>
+  <button class="reset" id="reset">清空重勾</button>
+</div>
+<script>
+  var ITEMS = [
+    { g: "你点名要提醒的", items: [["mosquito","防蚊液",""],["towel","浴巾",""],["pillow","枕头",""],["dogfood","狗粮","三天的量"],["dogbowl","狗喝水的盆",""]] },
+    { g: "个人必备", items: [["idcard","身份证",""],["charger","手机充电器",""],["downcoat","厚羽绒服（自己+爸妈）","早晚冷"],["umbrella","雨伞","明早有阵雨"],["nose","洗鼻器 + 鼻喷剂",""],["yitiaogen","一条根","腿酸用"],["carsick","晕车药",""],["clothes","换洗衣物","两晚"],["swim","私汤泳衣",""]] },
+    { g: "狗黑豆的", items: [["leash","牵引绳","必须牵绳"],["poopbag","拾便袋",""],["dogbed","狗垫子/窝",""],["peepad","尿垫",""]] },
+    { g: "出发前", items: [["charge","车今晚充满电","往返285km"],["leg","明早腿震一轮再出门",""]] }
+  ];
+  var KEY = "anji-checklist-v1";
+  var checked = {};
+  try { checked = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { checked = {}; }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(checked)); } catch (e) {} }
+  function render() {
+    var total = 0, done = 0, html = "";
+    ITEMS.forEach(function (grp) {
+      html += '<div class="group">' + grp.g + "</div>";
+      grp.items.forEach(function (it) {
+        total++;
+        var on = !!checked[it[0]];
+        if (on) done++;
+        html += '<div class="row' + (on ? " done" : "") + '" data-id="' + it[0] + '">'
+          + '<div class="box">' + (on ? "✓" : "") + "</div>"
+          + '<div class="label">' + it[1] + "</div>"
+          + (it[2] ? '<div class="tag">' + it[2] + "</div>" : "")
+          + "</div>";
+      });
+    });
+    document.getElementById("list").innerHTML = html;
+    document.getElementById("prog").textContent = "已装 " + done + " / " + total;
+    document.getElementById("barfill").style.width = (total ? Math.round(done / total * 100) : 0) + "%";
+  }
+  document.getElementById("list").addEventListener("click", function (ev) {
+    var row = ev.target;
+    while (row && !(row.classList && row.classList.contains("row"))) row = row.parentElement;
+    if (!row) return;
+    var id = row.getAttribute("data-id");
+    checked[id] = !checked[id];
+    save();
+    render();
+  });
+  document.getElementById("reset").addEventListener("click", function () {
+    checked = {};
+    save();
+    render();
+  });
+  render();
+</script>
+</body>
+</html>
