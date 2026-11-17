@@ -6,27 +6,48 @@
 <title>安吉必带清单</title>
 <style>
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  body { margin: 0; font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; background: #f6f7f9; color: #1c1e21; }
-  .wrap { max-width: 560px; margin: 0 auto; padding: 20px 16px 48px; }
-  h1 { font-size: 22px; margin: 4px 0 2px; }
-  .sub { color: #666; font-size: 13px; margin-bottom: 6px; }
-  .prog { font-size: 15px; font-weight: 600; color: #0a7d4f; margin: 10px 0 4px; }
-  .bar { height: 8px; background: #e3e6ea; border-radius: 4px; overflow: hidden; margin-bottom: 8px; }
-  .bar > div { height: 100%; background: #0a7d4f; width: 0%; transition: width .2s; }
-  .group { font-size: 14px; font-weight: 700; color: #0a7d4f; margin: 20px 0 6px; }
-  .row { display: flex; align-items: center; gap: 12px; background: #fff; border-radius: 12px; padding: 14px 14px; margin-bottom: 8px; cursor: pointer; box-shadow: 0 1px 2px rgba(0,0,0,.05); }
-  .box { flex: 0 0 auto; width: 26px; height: 26px; border-radius: 7px; border: 2px solid #c4cbd2; display: flex; align-items: center; justify-content: center; font-size: 17px; color: #fff; }
-  .row.done .box { background: #0a7d4f; border-color: #0a7d4f; }
-  .row.done .label { color: #999; text-decoration: line-through; }
-  .label { font-size: 16px; }
-  .tag { margin-left: auto; flex: 0 0 auto; font-size: 12px; color: #888; background: #f0f2f4; border-radius: 8px; padding: 2px 8px; }
-  .reset { display: block; margin: 26px auto 0; background: none; border: 1px solid #c4cbd2; color: #666; border-radius: 10px; padding: 9px 22px; font-size: 14px; cursor: pointer; }
+  body { margin: 0; font-family: "SF Mono", "JetBrains Mono", Consolas, "PingFang SC", "Microsoft YaHei", monospace, sans-serif;
+    background: #05070d; color: #d7e6f5;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0,229,255,.12), transparent),
+      linear-gradient(rgba(0,229,255,.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,.045) 1px, transparent 1px);
+    background-size: 100% 100%, 34px 34px, 34px 34px; }
+  .wrap { max-width: 560px; margin: 0 auto; padding: 26px 16px 52px; }
+  .kicker { font-size: 11px; letter-spacing: 4px; color: #00e5ff; text-transform: uppercase; margin-bottom: 6px; }
+  h1 { font-size: 26px; margin: 0 0 4px; font-weight: 800; letter-spacing: 2px; color: #f2faff;
+    text-shadow: 0 0 18px rgba(0,229,255,.55), 0 0 2px rgba(0,229,255,.8); }
+  .sub { color: #7d93a8; font-size: 12.5px; margin-bottom: 8px; letter-spacing: .5px; }
+  .prog { font-size: 15px; font-weight: 700; color: #00e5ff; margin: 14px 0 6px; letter-spacing: 1px;
+    text-shadow: 0 0 10px rgba(0,229,255,.5); }
+  .bar { height: 8px; background: rgba(0,229,255,.08); border: 1px solid rgba(0,229,255,.25); border-radius: 2px; overflow: hidden; margin-bottom: 10px; }
+  .bar > div { height: 100%; width: 0%; background: linear-gradient(90deg, #0077ff, #00e5ff);
+    box-shadow: 0 0 12px rgba(0,229,255,.8); transition: width .25s; }
+  .group { font-size: 13px; font-weight: 700; color: #ff2ea6; margin: 22px 0 8px; letter-spacing: 3px;
+    text-shadow: 0 0 10px rgba(255,46,166,.45); }
+  .group::before { content: "▸ "; color: #00e5ff; }
+  .row { display: flex; align-items: center; gap: 12px; padding: 14px; margin-bottom: 8px; cursor: pointer;
+    background: linear-gradient(180deg, rgba(13,22,38,.92), rgba(8,13,24,.92));
+    border: 1px solid rgba(0,229,255,.18); border-left: 3px solid rgba(0,229,255,.45); border-radius: 6px; }
+  .row:active { border-color: rgba(0,229,255,.6); }
+  .box { flex: 0 0 auto; width: 26px; height: 26px; border-radius: 4px; border: 2px solid rgba(0,229,255,.5);
+    display: flex; align-items: center; justify-content: center; font-size: 17px; color: #04121a; font-weight: 900; }
+  .row.done { border-left-color: #00e5ff; }
+  .row.done .box { background: #00e5ff; border-color: #00e5ff; box-shadow: 0 0 12px rgba(0,229,255,.75); }
+  .row.done .label { color: #5f7488; text-decoration: line-through; }
+  .label { font-size: 16px; letter-spacing: .5px; }
+  .tag { margin-left: auto; flex: 0 0 auto; font-size: 11.5px; color: #8fd8e8; border: 1px solid rgba(0,229,255,.3);
+    border-radius: 3px; padding: 2px 8px; letter-spacing: .5px; }
+  .reset { display: block; margin: 30px auto 0; background: transparent; border: 1px solid rgba(255,46,166,.55); color: #ff7ac2;
+    border-radius: 4px; padding: 10px 26px; font-size: 14px; letter-spacing: 2px; cursor: pointer; font-family: inherit; }
+  .reset:active { background: rgba(255,46,166,.12); }
 </style>
 </head>
 <body>
 <div class="wrap">
+  <div class="kicker">// Mission Loadout · Anji</div>
   <h1>安吉必带清单</h1>
-  <div class="sub">2026年11月18日出发 · 目远山舍 · 装一样点一下打勾，勾选存在本机浏览器里</div>
+  <div class="sub">2026-11-18 出发 · 目远山舍 · 装一样点一下打勾，勾选存在本机浏览器里</div>
   <div class="prog" id="prog"></div>
   <div class="bar"><div id="barfill"></div></div>
   <div id="list"></div>
